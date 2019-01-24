@@ -1,0 +1,18 @@
+sudo: required
+
+git:
+  depth: 3
+
+services:
+  - docker
+
+install:
+  - docker build --file Dockerfile.py3 --tag guillaume-florent/cadracks_core-py3:latest .
+  - docker build --file Dockerfile.py2 --tag guillaume-florent/cadracks_core-py2:latest .
+
+script:
+  - docker run guillaume-florent/cadracks_core-py3:latest /bin/bash -c "cd /opt/cadracks_core;pytest tests/"
+  - docker run guillaume-florent/cadracks_core-py2:latest /bin/bash -c "cd /opt/cadracks_core;pytest tests/"
+
+after_script:
+  - docker images
