@@ -5,10 +5,9 @@ r""""""
 
 from os.path import join, dirname
 
-from cadracks_core.factories import anchorable_part_from_stepzip
+from cadracks_core.factories import anchorable_part_from_py_script
 
-ap1 = anchorable_part_from_stepzip(join(dirname(__file__), "./models/spacer.zip"))
-
+ap1 = anchorable_part_from_py_script(join(dirname(__file__), "./spacer.py"))
 
 if __name__ == "__main__":
     from OCC.Display.SimpleGui import init_display
@@ -20,4 +19,3 @@ if __name__ == "__main__":
 
     display.FitAll()
     start_display()
-

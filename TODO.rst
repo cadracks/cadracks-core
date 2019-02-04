@@ -1,20 +1,27 @@
-Properties on parts and in stepzips
+******** Properties on parts and in stepzips
 
-Format of anchors files (cf. below) and stepzips
+******** Format of anchors files (cf. below) and stepzips
+
+Create anchorable part
+ ******** from *zip
+ ******** from py script
+  from library <- party must be revised
 
 complete project check
 
 complete sample_projects migration
 
+should we add to a or to a+b?
+
 Pbs majeurs pour adoption
 -------------------------
 
-Scripting should be PythonOCC bases, with ccad as an option (avoid ccad limitations)
+Scripting should be PythonOCC based, with ccad as an option (avoid ccad limitations)
 
 Ancres à 2 vecteurs (New anchors concept (normal + tangent))
   minimal : p, v1, v2
   extras : tolerance, dimension ...
-  anchor files should be json, not flat text
+  ******** anchor files should be json, not flat text
 
 Laisons méca = 10 liaisons élémentaires + liaison nulle + liaison complète
 
@@ -40,7 +47,7 @@ Laisons méca = 10 liaisons élémentaires + liaison nulle + liaison complète
 
 Perfs / Caching
 
-Joindre des assemblages entre eux -> exemple nested assemblies
+**** Joindre des assemblages entre eux -> exemple nested assemblies
 
 Install facile
 
@@ -49,7 +56,7 @@ Projects hosting + visu + BOM etc ...
 Todo Examples
 -------------
 
-Example with nested assemblies
+** Example with nested assemblies
 
 really global assembly of Tabby as an example
 

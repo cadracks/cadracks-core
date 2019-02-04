@@ -91,42 +91,18 @@ class AnchorablePart(Part):
     anchors : list of Anchors
 
     """
-    def __init__(self, shape, name, anchors):
+    def __init__(self, shape, name, anchors, properties=None):
         super().__init__(shape, name)
         self._anchors = {anchor.name: anchor for anchor in anchors}
-
-    @classmethod
-    def from_stepzip(cls, stepzip_file, name):
-        r"""Alternative constructor from a 'STEP + anchors' zip file. Such a
-        file is called a 'stepzip' file in the context of CadracksCoreFrame"""
-        anchors = []
-        stepfile_path, anchorsfile_path = extract_stepzip(stepzip_file)
-
-        step_imp = StepImporter(stepfile_path)
-        shape = step_imp.shapes[0]
-
-        with open(anchorsfile_path) as f:
-            lines = f.readlines()
-            for line in lines:
-                if line not in ["\n", "\r\n"] and not line.startswith("#"):
-                    items = re.findall(r'\S+', line)
-                    anchor_name = items[0]
-
-                    p_data = [float(value) for value in items[1].split(",")]
-                    p = (p_data[0], p_data[1], p_data[2])
-
-                    u_data = [float(value) for value in items[2].split(",")]
-                    u = (u_data[0], u_data[1], u_data[2])
-
-                    v_data = [float(value) for value in items[3].split(",")]
-                    v = (v_data[0], v_data[1], v_data[2])
-
-                    anchors.append(Anchor(p, u, v, anchor_name))
-        return cls(shape, name, anchors)
+        self._properties = properties if properties is not None else {}
 
     @property
     def anchors(self):
         return self._anchors
+
+    @property
+    def properties(self):
+        return self._properties
 
     @property
     def transformed_anchors(self):
@@ -224,6 +200,7 @@ class Assembly(object):
                      receiving_assemblies_anchors,
                      links):
         assert len(assembly_to_add_anchors) == len(receiving_assemblies) == len(receiving_assemblies_anchors) == len(links)
+
         if len(assembly_to_add_anchors) == 1:
             at = AnchorTransformation(assembly_to_add.anchors[assembly_to_add_anchors[0]],
                                       receiving_assemblies[0].anchors[receiving_assemblies_anchors[0]])
