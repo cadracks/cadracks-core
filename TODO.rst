@@ -5,7 +5,8 @@
 Create anchorable part
  ******** from *zip
  ******** from py script
-  from library <- party must be revised
+ ******** from library
+    ******** -> party must be revised
 
 complete project check
 

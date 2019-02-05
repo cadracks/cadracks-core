@@ -5,7 +5,7 @@ from cadracks_core.model import AnchorablePart, Anchor
 from cadracks_core.stepzip import extract_stepzip, read_part_data
 from aocxchange.step import StepImporter
 
-from party.library_use import generate
+from cadracks_party.library_use import generate
 
 
 def anchors_dict_to_list(anchors_dict):
@@ -54,13 +54,12 @@ def anchorable_part_from_library(library_file_path, part_id):
     module_ = imp.load_source(splitext(module_path)[0],
                               module_path)
 
-    # TODO : change the identifier in party
-    if not hasattr(module_, 'part'):
-        raise ValueError("The Python module should have a 'part' variable")
+    if not hasattr(module_, '__shape__'):
+        raise ValueError("The Python module should have a '__shape__' variable")
+    if not hasattr(module_, '__anchors__'):
+        raise ValueError("The Python module should have a '__anchors__' variable")
 
-    print(module_.anchors)
-
-    return AnchorablePart(shape=module_.part.shape,
+    return AnchorablePart(shape=module_.__shape__,
                           name= "%s-%s" % (splitext(basename(library_file_path))[0], part_id),
-                          anchors=anchors_dict_to_list(module_.anchors),
+                          anchors=anchors_dict_to_list(module_.__anchors__),
                           properties=None)
