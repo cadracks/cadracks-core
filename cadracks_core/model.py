@@ -245,6 +245,7 @@ class Assembly(object):
             for part in assembly_to_add._parts:
                 part._matrix_generators = [at] + part._matrix_generators
                 part._matrix_generators = [links[0]] + part._matrix_generators
+
             return at, links[0]
         else:
             raise NotImplementedError

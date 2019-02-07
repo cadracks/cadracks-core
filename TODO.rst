@@ -8,16 +8,23 @@ Create anchorable part
  ******** from library
     ******** -> party must be revised
 
-Adapt rim.stepzip for tests
-Commit "Cleanup and PEP8"
+******** Adapt rim.stepzip for tests
+******** Commit "Cleanup and PEP8"
 
 Joint is a base class that should not be used (e.g. in examples)
 
 complete project check
 
 complete sample_projects migration
+  car
+  ******** test_project
+  ******** sample.py needs 4032 new style
+
+Are __init__ files of any use in sample projects?
 
 should we add to a or to a+b?
+
+Keep track of the graph !
 
 Extra data on anchors not handled by Anchor!
 

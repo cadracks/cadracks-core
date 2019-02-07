@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-r""""""
+r"""Example of creating an anchorable part from a Python script"""
 
 from os.path import join, dirname
 

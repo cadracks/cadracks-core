@@ -43,3 +43,13 @@ def display_anchorable_part(d,
                         vec=gp_Vec(float(anchor.v[0]),
                                    float(anchor.v[1]),
                                    float(anchor.v[2])))
+
+
+def display_assembly(d, a, color="YELLOW", transparency=0.5, update=True):
+    r""""""
+    for part in a._parts:
+        display_anchorable_part(d,
+                                part,
+                                color=color,
+                                transparency=transparency,
+                                update=update)
