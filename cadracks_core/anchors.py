@@ -1,6 +1,6 @@
 # coding: utf-8
 
-r"""Anchors stuff"""
+r"""Anchors and anchor transformation definitions"""
 
 import numpy as np
 
@@ -107,12 +107,20 @@ class Anchor(object):
 
 
 class AnchorTransformation(object):
+    r"""Transformation needed to mate two anchors"""
     def __init__(self, anchor_0, anchor_1):
         self._anchor_0 = anchor_0
         self._anchor_1 = anchor_1
 
     @property
     def transformation_matrix(self):
+        r"""4x4 transformation matrix to apply to anchor_0 on anchor_1
+
+        Returns
+        -------
+        4x4 matrix
+
+        """
         return anchor_transformation(self._anchor_0, self._anchor_1)
 
 

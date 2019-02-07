@@ -59,7 +59,7 @@ def extract_stepzip(stepzip):
         elif ext in [".json", ".JSON"]:
             part_data_file_path = join(dirname(stepzip), name)
         else:
-            msg = "Unknown file typ ein zip"
+            msg = "Unknown file type in zip"
             logger. error(msg)
             raise ValueError(msg)
     zip_ref.extractall(dirname(stepzip))
@@ -68,6 +68,19 @@ def extract_stepzip(stepzip):
 
 
 def read_part_data(json_filename):
+    r"""(New style) stepzip files contain a 'part_data.json'. This function
+    read the part_data.json file to extract anchors and properties
+
+    Parameters
+    ----------
+    json_filename : str
+        Path to the part_data.json file
+
+    Returns
+    -------
+    tuple(dict, dict)
+        A tuple with the anchors dictionary and the properties dictionary
+    """
 
     with open(json_filename) as data_file:
         json_file_content = json.load(data_file)

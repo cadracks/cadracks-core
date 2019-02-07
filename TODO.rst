@@ -8,20 +8,27 @@ Create anchorable part
  ******** from library
     ******** -> party must be revised
 
+Adapt rim.stepzip for tests
+Commit "Cleanup and PEP8"
+
+Joint is a base class that should not be used (e.g. in examples)
+
 complete project check
 
 complete sample_projects migration
 
 should we add to a or to a+b?
 
+Extra data on anchors not handled by Anchor!
+
 Pbs majeurs pour adoption
 -------------------------
 
-Scripting should be PythonOCC based, with ccad as an option (avoid ccad limitations)
+******** Scripting should be PythonOCC based, with ccad as an option (avoid ccad limitations)
 
-Ancres à 2 vecteurs (New anchors concept (normal + tangent))
-  minimal : p, v1, v2
-  extras : tolerance, dimension ...
+******** Ancres à 2 vecteurs (New anchors concept (normal + tangent))
+  ********minimal : p, v1, v2
+  ********extras : tolerance, dimension ...
   ******** anchor files should be json, not flat text
 
 Laisons méca = 10 liaisons élémentaires + liaison nulle + liaison complète
@@ -52,7 +59,9 @@ Perfs / Caching
 
 Install facile
 
-Projects hosting + visu + BOM etc ...
+Projects hosting
+visu
+BOM
 
 Todo Examples
 -------------

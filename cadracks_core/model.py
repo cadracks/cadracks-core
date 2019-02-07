@@ -1,22 +1,20 @@
 # coding: utf-8
 
-r"""?"""
+r"""OO Models of Part, AnchorablePart and Assembly"""
 
 # TODO : potential anchor names duplicates problem
-#        add_assembly should not be static and an assembly should manage a list of contained assemblies
-
-import re
+#        add_assembly should not be static and an assembly should manage
+#        a list of contained assemblies
 
 import numpy as np
 
-from aocxchange.step import StepImporter
-
 from corelib.core.profiling import timeit
+
+from OCC.Core.gp import gp_Trsf
+from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
 
 from cadracks_core.anchors import AnchorTransformation
 from cadracks_core.transformations import identity_matrix
-from cadracks_core.stepzip import extract_stepzip
-from cadracks_core.anchors import Anchor
 
 
 class Part(object):
@@ -30,26 +28,38 @@ class Part(object):
     """
     def __init__(self, shape, name):
         self._shape = shape  # shape in own frame of reference
-        # self._part_transformation_matrices = []  # 4x4 matrices
         self._matrix_generators = []
         self._name = name
 
     @property
     def shape(self):
+        r"""Part shape
+
+        Returns
+        -------
+        OCC Shape
+
+        """
         return self._shape
 
     @property
     def name(self):
+        r"""Part name"""
         return self._name
 
-    # def add_matrix(self, m):
-    #     r"""Add a 4x4 transformation matrix to the list of transformation
-    #     matrices"""
-    #     assert np.shape(m) == (4, 4)
-    #     self._part_transformation_matrices.append(m)
-    #     # self._part_transformation_matrices = [m] + self._part_transformation_matrices
-
     def add_matrix_generator(self, g):
+        r"""Add a matrix generator to the list of matrix generators
+        linked to the part.
+
+        A matrix generator is any object with a
+        'transformation_matrix' property that returns a 4x4 matrix
+
+        Parameters
+        ----------
+        g : object
+            An object with a 'transformation_matrix' property
+
+        """
         self._matrix_generators.append(g)
 
     @property
@@ -58,7 +68,9 @@ class Part(object):
         can be used to place the part in its final location"""
         from functools import reduce
         if self._matrix_generators:
-            return reduce(np.dot, [g.transformation_matrix for g in self._matrix_generators])
+            return reduce(np.dot,
+                          [g.transformation_matrix
+                           for g in self._matrix_generators])
         else:
             return identity_matrix()
 
@@ -71,8 +83,6 @@ class Part(object):
         an OCC shape, in its final location
 
         """
-        from OCC.Core.gp import gp_Trsf
-        from OCC.Core.BRepBuilderAPI import BRepBuilderAPI_Transform
         trsf = gp_Trsf()
         m = self.combined_matrix
         trsf.SetValues(m[0, 0], m[0, 1], m[0, 2], m[0, 3],
@@ -98,44 +108,68 @@ class AnchorablePart(Part):
 
     @property
     def anchors(self):
+        r"""Anchors 'getter'
+
+        Returns
+        -------
+        dict
+
+        """
         return self._anchors
 
     @property
     def properties(self):
+        r"""Properties 'getter'
+
+        Returns
+        -------
+        dict
+
+        """
         return self._properties
 
     @property
     def transformed_anchors(self):
-        anchors_list = [a.transform(self.combined_matrix) for a in self.anchors.values()]
+        r"""Dynamically computed transformed anchors
+
+        Returns
+        -------
+        dict
+
+        """
+        anchors_list = [a.transform(self.combined_matrix)
+                        for a in self.anchors.values()]
         return {anchor.name: anchor for anchor in anchors_list}
 
-    # @property
-    # def transformed(self):
-    #     r"""
-    #
-    #     Returns
-    #     -------
-    #     A new AnchorablePart, placed in its final location
-    #
-    #     """
-    #     transformed_shape = self.transformed_shape
-    #     transformed_anchors = [a.transform(self.combined_matrix) for a in self.anchors.values()]
-    #     return AnchorablePart(transformed_shape, self.name, transformed_anchors)
-
     def __str__(self):
-        l = []
-        l.append("---- Anchorable Part : %s ----" % self.name)
+        lines_list = ["---- Anchorable Part : %s ----" % self.name]
+
+        anchor_pattern = "Anchor %s : " \
+                         "p=(%f, %f, %f) " \
+                         "u=(%f, %f, %f) " \
+                         "v=(%f, %f, %f)"
+
         for k, a in self.anchors.items():
-            l.append("Anchor %s : p=(%f, %f, %f) u=(%f, %f, %f) v=(%f, %f, %f)" % (k, a.p[0], a.p[1], a.p[2], a.u[0], a.u[1], a.u[2], a.v[0], a.v[1], a.v[2]))
-        return "\n".join(l)
+            lines_list.append(anchor_pattern % (k,
+                                                a.p[0],
+                                                a.p[1],
+                                                a.p[2],
+                                                a.u[0],
+                                                a.u[1],
+                                                a.u[2],
+                                                a.v[0],
+                                                a.v[1],
+                                                a.v[2]))
+        return "\n".join(lines_list)
 
 
 class Assembly(object):
-    r"""
+    r"""Assembly
     
     Parameters
     ----------
     root_part : AnchorablePart
+    name : str
 
     """
     def __init__(self, root_part, name):
@@ -152,7 +186,7 @@ class Assembly(object):
                  receiving_parts,
                  receiving_parts_anchors,
                  links):
-        r"""
+        r"""Add an AnchorablePart to the Assembly
         
         Parameters
         ----------
@@ -163,27 +197,27 @@ class Assembly(object):
             List of AnchorablePart
         receiving_parts_anchors
             List of anchors names on receiving parts
-        links : list[Link]
+        links : list[Joint or subclass]
             List of links applied in the same order as the anchors
 
         Returns
         -------
+        tuple
 
         """
-        assert len(part_to_add_anchors) == len(receiving_parts) == len(receiving_parts_anchors) == len(links)
+        assert (len(part_to_add_anchors) == len(receiving_parts)
+                == len(receiving_parts_anchors) == len(links))
+
         if len(part_to_add_anchors) == 1:
-            # This is the base case that is already dealt with in cadracks_core
-            # m = anchor_transformation(part_to_add.transformed.anchors[part_to_add_anchors[0]],
-            #                           receiving_parts[0].transformed.anchors[receiving_parts_anchors[0]])
-            at = AnchorTransformation(part_to_add.transformed_anchors[part_to_add_anchors[0]],
-                                      receiving_parts[0].transformed_anchors[receiving_parts_anchors[0]])
+            # This is the base case : 1 anchor on another anchor
+            at = AnchorTransformation(
+                part_to_add.transformed_anchors[part_to_add_anchors[0]],
+                receiving_parts[0].transformed_anchors[receiving_parts_anchors[0]])
 
-            part_to_add._matrix_generators = [at] + part_to_add._matrix_generators
-            part_to_add._matrix_generators = [links[0]] + part_to_add._matrix_generators
-            # part_to_add._matrix_generators = receiving_parts[0]._matrix_generators + part_to_add._matrix_generators
-
-            # part_to_add.add_matrix_generator(at)
-            # part_to_add.add_matrix_generator(links[0])
+            part_to_add._matrix_generators = \
+                [at] + part_to_add._matrix_generators
+            part_to_add._matrix_generators = \
+                [links[0]] + part_to_add._matrix_generators
 
             self._parts.append(part_to_add)
             return at, links[0]
@@ -199,15 +233,17 @@ class Assembly(object):
                      receiving_assemblies,
                      receiving_assemblies_anchors,
                      links):
-        assert len(assembly_to_add_anchors) == len(receiving_assemblies) == len(receiving_assemblies_anchors) == len(links)
+        r"""Add an Assembly to the Assembly"""
+        assert (len(assembly_to_add_anchors) == len(receiving_assemblies) ==
+                len(receiving_assemblies_anchors) == len(links))
 
         if len(assembly_to_add_anchors) == 1:
-            at = AnchorTransformation(assembly_to_add.anchors[assembly_to_add_anchors[0]],
-                                      receiving_assemblies[0].anchors[receiving_assemblies_anchors[0]])
+            at = AnchorTransformation(
+                assembly_to_add.anchors[assembly_to_add_anchors[0]],
+                receiving_assemblies[0].anchors[receiving_assemblies_anchors[0]])
+
             for part in assembly_to_add._parts:
-                # part.add_matrix(m)
                 part._matrix_generators = [at] + part._matrix_generators
-                # part.add_matrix(links[0].transformation_matrix)
                 part._matrix_generators = [links[0]] + part._matrix_generators
             return at, links[0]
         else:
@@ -215,6 +251,14 @@ class Assembly(object):
 
     @property
     def anchors(self):
+        r"""Assembly anchors 'getter'
+
+        Returns
+        -------
+        dict
+
+        """
+        # TODO : what if the same anchor name appears more than once?
         anchors = {}
         for part in self._parts:
             for k, v in part.transformed_anchors.items():
