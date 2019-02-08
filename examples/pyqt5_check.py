@@ -1,16 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-"""
-ZetCode PyQt5 tutorial
-
-In this example, we create a simple
-window in PyQt5.
-
-Author: Jan Bodnar
-Website: zetcode.com
-Last edited: August 2017
-"""
+r"""Create a simple window in PyQt5"""
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget

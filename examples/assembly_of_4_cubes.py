@@ -69,17 +69,23 @@ a.add_part(part_to_add=ap4,
            receiving_parts_anchors=['b3'],
            links=[Joint(anchor=ap3.transformed_anchors['b3'], tx=3)])
 
+__assembly__ = a
+
 if __name__ == "__main__":
     from OCC.Display.SimpleGui import init_display
-    from cadracks_core.display import display_anchorable_part
+    from cadracks_core.display import display_anchorable_part, display_assembly
 
     display, start_display, add_menu, add_function_to_menu = init_display()
 
-    display_anchorable_part(display, ap1, color="YELLOW")
-    display_anchorable_part(display, ap2, color="BLUE")
-    display_anchorable_part(display, ap3, color="RED")
-    display_anchorable_part(display, ap4, color="GREEN")
-    # print(ap2._part_transformation_matrices)
+    display_parts = False
+
+    if display_parts is True:
+        display_anchorable_part(display, ap1, color="YELLOW")
+        display_anchorable_part(display, ap2, color="BLUE")
+        display_anchorable_part(display, ap3, color="RED")
+        display_anchorable_part(display, ap4, color="GREEN")
+    else:
+        display_assembly(display, __assembly__)
 
     display.FitAll()
     start_display()

@@ -20,6 +20,8 @@ complete sample_projects migration
   ******** test_project
   ******** sample.py needs 4032 new style
 
+Cleanup the mess when creating from a stepzip file
+
 Are __init__ files of any use in sample projects?
 
 should we add to a or to a+b?

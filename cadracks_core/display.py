@@ -6,6 +6,15 @@ from corelib.core.profiling import timeit
 
 from OCC.Core.gp import gp_Pnt, gp_Vec
 
+colors = ("BLUE",
+          "ORANGE",
+          "CYAN",
+          "RED",
+          "GREEN",
+          "BLACK",
+          "YELLOW",
+          "WHITE")
+
 
 @timeit
 def display_anchorable_part(d,
@@ -22,7 +31,7 @@ def display_anchorable_part(d,
     ap : AnchorablePart
     color : str
     transparency : float between 0 and 1
-    update ; bool
+    update : bool
 
     """
     d.DisplayShape(ap.transformed_shape,
@@ -46,10 +55,39 @@ def display_anchorable_part(d,
 
 
 def display_assembly(d, a, color="YELLOW", transparency=0.5, update=True):
-    r""""""
+    r"""Display the anchorable parts that make up an assembly
+
+    Parameters
+    ----------
+    d : display (first return value of a call to
+        OCC.Display.SimpleGui.init_display())
+    a : Assembly
+    color : str
+    transparency : float between 0 and 1
+    update : bool
+
+    """
     for part in a._parts:
         display_anchorable_part(d,
                                 part,
                                 color=color,
                                 transparency=transparency,
                                 update=update)
+
+
+def display_assemblies(d, assemblies):
+    r"""Convenience function to display a list of assemblies
+
+    Parameters
+    ----------
+    d : display (first return value of a call to
+        OCC.Display.SimpleGui.init_display())
+    assemblies : list[Assembly]
+
+    """
+    for i, assembly in enumerate(assemblies):
+        display_assembly(d,
+                         assembly,
+                         color=colors[i % len(colors)],
+                         transparency=0.,
+                         update=True)
