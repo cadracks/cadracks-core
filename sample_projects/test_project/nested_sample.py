@@ -41,6 +41,11 @@ for i in range(4):
                    links=[Joint(anchor=bolt.anchors['head_bottom'])])
 
 
+__assemblies__ = [A]
+for bolt in bolts:
+    __assemblies__.append(bolt)
+
+
 if __name__ == "__main__":
     from OCC.Display.SimpleGui import init_display
     from cadracks_core.display import display_assembly, display_anchorable_part

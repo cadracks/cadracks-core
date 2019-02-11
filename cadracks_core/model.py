@@ -106,6 +106,9 @@ class AnchorablePart(Part):
         self._anchors = {anchor.name: anchor for anchor in anchors}
         self._properties = properties if properties is not None else {}
 
+        # Hack for display
+        # self._shape.properties = self._properties
+
     @property
     def anchors(self):
         r"""Anchors 'getter'

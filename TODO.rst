@@ -22,7 +22,7 @@ complete sample_projects migration
 
 Cleanup the mess when creating from a stepzip file
 
-Are __init__ files of any use in sample projects?
+******** Are __init__ files of any use in sample projects? -> NO
 
 should we add to a or to a+b?
 

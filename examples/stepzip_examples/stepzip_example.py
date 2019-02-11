@@ -7,7 +7,7 @@ from os.path import join, dirname
 
 from cadracks_core.factories import anchorable_part_from_stepzip
 
-ap1 = anchorable_part_from_stepzip(join(dirname(__file__), "./models/spacer.zip"))
+ap1 = anchorable_part_from_stepzip(join(dirname(__file__), "./models/spacer.stepzip"))
 
 
 if __name__ == "__main__":

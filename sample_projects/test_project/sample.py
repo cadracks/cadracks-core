@@ -20,23 +20,23 @@ nuts = [anchorable_part_from_library(
     part_id="ISO4032_Nut_M2.0") for _ in range(4)]
 
 
-a = Assembly(root_part=plate_gn, name="Plate and bolts")
+__assembly__ = Assembly(root_part=plate_gn, name="Plate and bolts")
 
 for i, screw in enumerate(screws, 1):
 
-    a.add_part(part_to_add=screw,
-               part_to_add_anchors=['head_bottom'],
-               receiving_parts=[plate_gn],
-               receiving_parts_anchors=[str(i)],
-               links=[Joint(anchor=screw.transformed_anchors['head_bottom'])])
+    __assembly__.add_part(part_to_add=screw,
+                          part_to_add_anchors=['head_bottom'],
+                          receiving_parts=[plate_gn],
+                          receiving_parts_anchors=[str(i)],
+                          links=[Joint(anchor=screw.transformed_anchors['head_bottom'])])
 
 for i, (screw, nut) in enumerate(zip(screws, nuts), 1):
 
-    a.add_part(part_to_add=nut,
-               part_to_add_anchors=['nut_top'],
-               receiving_parts=[screw],
-               receiving_parts_anchors=['head_bottom'],
-               links=[Joint(anchor=nut.transformed_anchors['nut_top'], tx=-5-1.6)])
+    __assembly__.add_part(part_to_add=nut,
+                          part_to_add_anchors=['nut_top'],
+                          receiving_parts=[screw],
+                          receiving_parts_anchors=['head_bottom'],
+                          links=[Joint(anchor=nut.transformed_anchors['nut_top'], tx=-5-1.6)])
 
 if __name__ == "__main__":
 
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     same_colors = False
 
     if same_colors is True:
-        display_assembly(display, a, color="BLUE")
+        display_assembly(display, __assembly__, color="BLUE")
     else:
         display_anchorable_part(display, plate_gn, color="BLUE", transparency=0)
         for screw in screws:
