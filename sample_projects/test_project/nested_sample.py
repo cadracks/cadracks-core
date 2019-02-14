@@ -2,21 +2,33 @@
 
 r"""Example of direct construction"""
 
+from os.path import dirname, join
+
 from cadracks_core.factories import anchorable_part_from_library, \
     anchorable_part_from_py_script
 from cadracks_core.model import Assembly
 from cadracks_core.joints import Joint
 
-plate_gn = anchorable_part_from_py_script(py_script_path="py_scripts/plate_with_holes.py")
+plate_with_holes_script = join(dirname(__file__),
+                               "py_scripts/plate_with_holes.py")
+
+iso_4014_library_filepath = join(dirname(__file__),
+                                 "libraries/ISO4014_library.json")
+
+iso_4032_library_filepath = join(dirname(__file__),
+                                 "libraries/ISO4032_library.json")
+
+
+plate_gn = anchorable_part_from_py_script(py_script_path=plate_with_holes_script)
 
 print("Plate gn : %s" % plate_gn)
 
 screws = [anchorable_part_from_library(
-    library_file_path="libraries/ISO4014_library.json",
+    library_file_path=iso_4014_library_filepath,
     part_id="ISO4014_M2_grade_Bx21") for _ in range(4)]
 
 nuts = [anchorable_part_from_library(
-    library_file_path="libraries/ISO4032_library.json",
+    library_file_path=iso_4032_library_filepath,
     part_id="ISO4032_Nut_M2.0") for _ in range(4)]
 
 
