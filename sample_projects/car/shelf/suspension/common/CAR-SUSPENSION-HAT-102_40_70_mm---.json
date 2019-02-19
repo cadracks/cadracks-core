@@ -1,5 +1,3 @@
-axis_bottom 0,0,0,0,1,0
-
 {
   "anchors":
   { "axis_bottom" : { "p" : [0, 0, 0],
