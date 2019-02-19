@@ -1,1 +1,13 @@
 axis_bottom 0,0,0,0,1,0
+
+{
+  "anchors":
+  { "axis_bottom" : { "p" : [0, 0, 0],
+                      "u" : [0.0, 1.0, 0.0],
+                      "v" : [1.0, 0.0, 0.0]
+    }
+  },
+    "properties": {
+      "material" : {"value" :  "STEEL", "unit" :  null}
+    }
+}

@@ -1,2 +1,18 @@
 AXIS_CENTRAL_d383#mm_ 0,0,0,0,0,-1
 AXIS_SIDE_d383#mm_ 0,0,-70.3,0,0,-1
+
+{
+  "anchors":
+  { "AXIS_CENTRAL_d383#mm_" : { "p" : [0.0, 0.0, 0.0],
+                             "u" : [0.0, 0.0, -1.0],
+                             "v" : [1.0, 0.0, 0.0]
+    },
+    "AXIS_SIDE_d383#mm_" : { "p" : [0, 0, -70.3],
+                             "u" : [0.0, 0.0, -1.0],
+                             "v" : [1.0, 0.0, 0.0]
+    }
+  },
+    "properties": {
+      "material" : {"value" :  "RUBBER", "unit" :  null}
+    }
+}

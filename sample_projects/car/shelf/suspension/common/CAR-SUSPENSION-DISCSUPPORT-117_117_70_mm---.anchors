@@ -1,2 +1,18 @@
 axis_disc 0,0,0,0,0,-1
 axis_drive 0,0,70,0,0,1
+
+{
+  "anchors":
+  { "axis_disc" : { "p" : [0, 0, 0],
+                    "u" : [0.0, 0.0, -1.0],
+                    "v" : [-1.0, 0.0, 0.0]
+    },
+    "axis_drive" : { "p" : [0,0,70],
+                     "u" : [0.0, 0.0, 1.0],
+                     "v" : [1.0, 0.0, 0.0]
+    }
+  },
+    "properties": {
+      "material" : {"value" :  "STEEL", "unit" :  null}
+    }
+}
