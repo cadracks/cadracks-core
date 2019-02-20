@@ -6,7 +6,7 @@ from os.path import basename, splitext, join, dirname
 import imp
 import logging
 
-from corelib.core.memoize import memoize
+# from corelib.core.memoize import memoize
 
 from cadracks_core.model import AnchorablePart
 from cadracks_core.anchors import Anchor
@@ -42,7 +42,12 @@ def anchors_dict_to_list(anchors_dict):
     return anchors_list
 
 
-@memoize
+# @memoize
+# Cannot use memoize here, we need a copy
+
+cache = {}
+
+
 def anchorable_part_from_stepzip(stepzip_filepath):
     r"""Create an anchorable part (AnchorablePart instance) from a stepzip file
 
@@ -56,12 +61,17 @@ def anchorable_part_from_stepzip(stepzip_filepath):
     AnchorablePart
 
     """
-    stepfile_path, part_data_file_path = extract_stepzip(stepzip_filepath)
+    if stepzip_filepath in cache:
+        shape, stepfile_path, anchors_dict, properties = cache[stepzip_filepath]
+    else:
+        stepfile_path, part_data_file_path = extract_stepzip(stepzip_filepath)
 
-    step_imp = StepImporter(stepfile_path)
-    shape = step_imp.compound
+        step_imp = StepImporter(stepfile_path)
+        shape = step_imp.compound
 
-    anchors_dict, properties = read_part_data(part_data_file_path)
+        anchors_dict, properties = read_part_data(part_data_file_path)
+
+        cache[stepzip_filepath] = (shape, stepfile_path, anchors_dict, properties)
 
     anchors_list = anchors_dict_to_list(anchors_dict)
 
