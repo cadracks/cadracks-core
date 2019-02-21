@@ -3,6 +3,7 @@
 
 r"""Tabby rear suspension assembly"""
 
+from os.path import join, dirname
 from math import radians
 
 from cadracks_core.factories import anchorable_part_from_stepzip
@@ -10,50 +11,55 @@ from cadracks_core.model import Assembly
 from cadracks_core.joints import Joint
 
 
+def r_(relative_path):
+    r"""Return absolute path from relative path"""
+    return join(dirname(__file__), relative_path)
+
+
 def make_front_suspension_assembly():
     r"""Front suspension assembly creation"""
     p1_0 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-BEARING-l54.7_d37_mm---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-BEARING-l54.7_d37_mm---.stepzip"))
 
     p1_1 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-BEARING-l54.7_d37_mm---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-BEARING-l54.7_d37_mm---.stepzip"))
 
     p2 = anchorable_part_from_stepzip(
-        "shelf/suspension/front/"
-        "CAR-SUSPENSION-FORK-320_44_270_mm---.stepzip")
+        r_("shelf/suspension/front/"
+           "CAR-SUSPENSION-FORK-320_44_270_mm---.stepzip"))
     p3 = anchorable_part_from_stepzip(
-        "shelf/suspension/front/"
-        "CAR-SUSPENSION-LINK-28_23_124_mm---.stepzip")
+        r_("shelf/suspension/front/"
+           "CAR-SUSPENSION-LINK-28_23_124_mm---.stepzip"))
     p4 = anchorable_part_from_stepzip(
-        "shelf/suspension/front/"
-        "CAR-DIRECTION-BALLHEAD-D23_d10_l70_mm---.stepzip")
+        r_("shelf/suspension/front/"
+           "CAR-DIRECTION-BALLHEAD-D23_d10_l70_mm---.stepzip"))
     p5 = anchorable_part_from_stepzip(
-        "shelf/suspension/front/"
-        "CAR-SUSPENSION-HUB-107_212_84_mm---.stepzip")
+        r_("shelf/suspension/front/"
+           "CAR-SUSPENSION-HUB-107_212_84_mm---.stepzip"))
 
     p6 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-DISCSUPPORT-117_117_70_mm---.stepzip")
+        r_("shelf/suspension/common/"
+        "CAR-SUSPENSION-DISCSUPPORT-117_117_70_mm---.stepzip"))
     p7 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-AXLE-DISC-d227_h46_mm-STEEL--.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-AXLE-DISC-d227_h46_mm-STEEL--.stepzip"))
     p8 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-CYLINDER-l320_d42---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-CYLINDER-l320_d42---.stepzip"))
     p9 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-PISTON-l381_d33_d16-STEEL--.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-PISTON-l381_d33_d16-STEEL--.stepzip"))
     p10 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-HAT-102_40_70_mm---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-HAT-102_40_70_mm---.stepzip"))
     p11 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-HEAD-60_48_67_mm---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-HEAD-60_48_67_mm---.stepzip"))
     p12 = anchorable_part_from_stepzip(
-        "shelf/suspension/common/"
-        "CAR-SUSPENSION-NECK-d28_l51_mm---.stepzip")
+        r_("shelf/suspension/common/"
+           "CAR-SUSPENSION-NECK-d28_l51_mm---.stepzip"))
 
     front_suspension_assembly = Assembly(root_part=p2,
                                          name="Front suspension assembly")

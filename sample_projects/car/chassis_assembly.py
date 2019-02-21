@@ -2,6 +2,7 @@
 
 r"""Example of a car model"""
 
+from os.path import join, dirname
 from math import radians
 
 from cadracks_core.factories import anchorable_part_from_stepzip
@@ -9,38 +10,43 @@ from cadracks_core.model import Assembly
 from cadracks_core.joints import Joint
 
 
+def r_(relative_path):
+    r"""Return absolute path from relative path"""
+    return join(dirname(__file__), relative_path)
+
+
 def make_chassis_assembly():
     r"""Chassis assembly creation"""
 
     p1_base = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/CAR-CHASSIS-BASE-2.38_0.179_1.18-STEEL--.stepzip")
+        r_("shelf/chassis/CAR-CHASSIS-BASE-2.38_0.179_1.18-STEEL--.stepzip"))
     p2_l = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-ARCHLEFT-705_515_184_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-ARCHLEFT-705_515_184_mm-STEEL--.stepzip"))
     p2_r = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-ARCHRIGHT-705_515_184_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-ARCHRIGHT-705_515_184_mm-STEEL--.stepzip"))
     p4 = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-ARCHSTRUT-127_126_796_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-ARCHSTRUT-127_126_796_mm-STEEL--.stepzip"))
     p5 = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-SEATSSUPPORT-410_151_1174_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-SEATSSUPPORT-410_151_1174_mm-STEEL--.stepzip"))
     p6 = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-DASHBOARDSUPPORT-107_535_1184_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-DASHBOARDSUPPORT-107_535_1184_mm-STEEL--.stepzip"))
     p7_l = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-SUSPENSION-ARCHLEFT-526_535_284_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-SUSPENSION-ARCHLEFT-526_535_284_mm-STEEL--.stepzip"))
     p7_r = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-SUSPENSION-ARCHRIGHT-526_535_284_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-SUSPENSION-ARCHRIGHT-526_535_284_mm-STEEL--.stepzip"))
     p8 = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-ARCHSTRUT-111_130_746_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-ARCHSTRUT-111_130_746_mm-STEEL--.stepzip"))
     p9 = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/chassis/"
-                     "CAR-CHASSIS-DASHBOARDSUPPORTREINFORCEMENT-205_525_75_mm-STEEL--.stepzip")
+        r_("shelf/chassis/"
+           "CAR-CHASSIS-DASHBOARDSUPPORTREINFORCEMENT-205_525_75_mm-STEEL--.stepzip"))
 
     chassis_assembly = Assembly(root_part=p1_base, name="Chassis assembly")
 

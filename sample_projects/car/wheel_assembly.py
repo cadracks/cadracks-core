@@ -2,19 +2,25 @@
 
 r"""Tabby wheel assembly"""
 
+from os.path import join, dirname
+
 from cadracks_core.factories import anchorable_part_from_stepzip
 from cadracks_core.model import Assembly
 from cadracks_core.joints import Joint
 
 
+def r_(relative_path):
+    r"""Return absolute path from relative path"""
+    return join(dirname(__file__), relative_path)
+
+
 def make_wheel_assembly():
     r"""Wheel assembly creation"""
-    rim = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/wheel/"
-                         "CAR-WHEEL-RIM-D416_l174_mm---.stepzip")
-    tyre = anchorable_part_from_stepzip(
-        stepzip_filepath="shelf/wheel/"
-                         "CAR-WHEEL-TYRE-D575_l178_mm-RUBBER--.stepzip")
+    rim_path = r_("shelf/wheel/CAR-WHEEL-RIM-D416_l174_mm---.stepzip")
+    rim = anchorable_part_from_stepzip(stepzip_filepath=rim_path)
+
+    tyre_path = r_("shelf/wheel/CAR-WHEEL-TYRE-D575_l178_mm-RUBBER--.stepzip")
+    tyre = anchorable_part_from_stepzip(stepzip_filepath=tyre_path)
 
     wheel_assembly = Assembly(root_part=rim, name="wheel assembly")
 

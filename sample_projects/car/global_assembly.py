@@ -3,8 +3,11 @@
 
 r"""Tabby global assembly of partial assemblies"""
 
+import sys
+from os.path import dirname
 from math import radians
 
+sys.path.insert(0, dirname(__file__))
 import chassis_assembly
 import front_suspension_assembly
 from cadracks_core.joints import Joint
