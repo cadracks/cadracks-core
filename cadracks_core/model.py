@@ -282,5 +282,5 @@ class Assembly(object):
         anchors = {}
         for part in self._parts:
             for k, v in part.transformed_anchors.items():
-                anchors[k] = v
+                anchors["%s.%s" % (part.name, k)] = v
         return anchors

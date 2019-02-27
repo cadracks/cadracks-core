@@ -16,10 +16,10 @@ chassis_assembly_ = chassis_assembly.__assembly__
 front_suspension_assembly_ = front_suspension_assembly.__assembly__
 
 chassis_assembly_.add_assembly(assembly_to_add=front_suspension_assembly_,
-                               assembly_to_add_anchors=['narrow_out'],
+                               assembly_to_add_anchors=['CAR-SUSPENSION-BEARING-l54.7_d37_mm---.narrow_out'],
                                receiving_assemblies=[chassis_assembly_],
-                               receiving_assemblies_anchors=['J2-L'],
-                               links=[Joint(anchor=chassis_assembly_.anchors['J2-L'] ,
+                               receiving_assemblies_anchors=['CAR-CHASSIS-BASE-2.38_0.179_1.18-STEEL--.J2-L'],
+                               links=[Joint(anchor=chassis_assembly_.anchors['CAR-CHASSIS-BASE-2.38_0.179_1.18-STEEL--.J2-L'] ,
                                             rx=radians(180))])
 
 __assemblies__ = [chassis_assembly_, front_suspension_assembly_]

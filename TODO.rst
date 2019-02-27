@@ -15,8 +15,8 @@ Joint is a base class that should not be used (e.g. in examples)
 
 complete project check
 
-complete sample_projects migration
-  car
+******** complete sample_projects migration
+  ********* car
   ******** test_project
   ******** sample.py needs 4032 new style
 

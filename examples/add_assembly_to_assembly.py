@@ -104,14 +104,12 @@ if __name__ == "__main__":
         display_assemblies(display, __assemblies__)
     else:
         Assembly.add_assembly(assembly_to_add=b,
-                              assembly_to_add_anchors=['bottom3'],
+                              assembly_to_add_anchors=['ap3.bottom3'],
                               receiving_assemblies=[a],
-                              receiving_assemblies_anchors=['bottom2'],
-                              links=[Joint(anchor=a.anchors['bottom2'],
+                              receiving_assemblies_anchors=['ap2.bottom2'],
+                              links=[Joint(anchor=a.anchors['ap2.bottom2'],
                                            tx=1,
-                                           rx=1,
-                                           ry=0,
-                                           rz=0)])
+                                           rx=1)])
 
         display_assemblies(display, __assemblies__)
 

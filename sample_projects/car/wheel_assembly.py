@@ -22,7 +22,7 @@ def make_wheel_assembly():
     tyre_path = r_("shelf/wheel/CAR-WHEEL-TYRE-D575_l178_mm-RUBBER--.stepzip")
     tyre = anchorable_part_from_stepzip(stepzip_filepath=tyre_path)
 
-    wheel_assembly = Assembly(root_part=rim, name="wheel assembly")
+    wheel_assembly = Assembly(root_part=rim, name="wheel_assembly")
 
     wheel_assembly.add_part(
         part_to_add=tyre,

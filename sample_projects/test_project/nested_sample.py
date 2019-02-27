@@ -42,15 +42,16 @@ for i in range(4):
                   part_to_add_anchors=['nut_top'],
                   receiving_parts=[screws[i]],
                   receiving_parts_anchors=['head_bottom'],
-                  links=[Joint(anchor=nuts[i].transformed_anchors['nut_top'], tx=5+1.6)])
+                  links=[Joint(anchor=nuts[i].transformed_anchors['nut_top'],
+                               tx=5+1.6)])
 
     bolts.append(bolt)
 
     A.add_assembly(assembly_to_add=bolt,
-                   assembly_to_add_anchors=['head_bottom'],
+                   assembly_to_add_anchors=['ISO4014_library-ISO4014_M2_grade_Bx21.head_bottom'],
                    receiving_assemblies=[A],
-                   receiving_assemblies_anchors=[str(i + 1)],
-                   links=[Joint(anchor=bolt.anchors['head_bottom'])])
+                   receiving_assemblies_anchors=["plate_with_holes.%s" % str(i + 1)],
+                   links=[Joint(anchor=bolt.anchors['ISO4014_library-ISO4014_M2_grade_Bx21.head_bottom'])])
 
 
 __assemblies__ = [A]

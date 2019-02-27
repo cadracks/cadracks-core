@@ -62,7 +62,7 @@ def make_front_suspension_assembly():
            "CAR-SUSPENSION-NECK-d28_l51_mm---.stepzip"))
 
     front_suspension_assembly = Assembly(root_part=p2,
-                                         name="Front suspension assembly")
+                                         name="front_suspension_assembly")
 
     front_suspension_assembly.add_part(
         part_to_add=p1_0,

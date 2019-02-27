@@ -48,7 +48,7 @@ def make_chassis_assembly():
         r_("shelf/chassis/"
            "CAR-CHASSIS-DASHBOARDSUPPORTREINFORCEMENT-205_525_75_mm-STEEL--.stepzip"))
 
-    chassis_assembly = Assembly(root_part=p1_base, name="Chassis assembly")
+    chassis_assembly = Assembly(root_part=p1_base, name="chassis_assembly")
 
     chassis_assembly.add_part(
         part_to_add=p2_l,
