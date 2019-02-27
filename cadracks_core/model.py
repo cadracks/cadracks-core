@@ -109,6 +109,14 @@ class AnchorablePart(Part):
         # Hack for display
         # self._shape.properties = self._properties
 
+    def copy(self, new_name=None):
+        from copy import deepcopy
+        ap = deepcopy(self)
+        if new_name is None:
+            new_name = "Copy of %s" % self.name
+        ap._name = new_name
+        return ap
+
     @property
     def anchors(self):
         r"""Anchors 'getter'
@@ -181,6 +189,14 @@ class Assembly(object):
         self._parts = []
         self._parts.append(root_part)
         self._name = name
+
+    def copy(self, new_name=None):
+        from copy import deepcopy
+        a = deepcopy(self)
+        if new_name is None:
+            new_name = "Copy of %s" % self.name
+        a._name = new_name
+        return a
 
     @timeit
     def add_part(self,
