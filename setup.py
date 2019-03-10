@@ -40,8 +40,7 @@ setup(
     ],
     keywords=['OpenCascade', 'PythonOCC', 'ccad', 'CAD', 'parts', 'json'],
     packages=['cadracks_core',
-              'cadracks_core.utils',
-              'cadracks_core.ui'],
+              'cadracks_core.utils'],
     install_requires=[],
     # OCC, scipy and wx cannot be installed via pip
     extras_require={'dev': [],
