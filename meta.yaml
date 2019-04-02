@@ -33,5 +33,5 @@ requirements:
 about:
   home: https://github.com/cadracks/cadracks_core
   license: GPLv3
-  license_file: LICENSE.txt
+  license_file: COPYING
   summary: Modelling of complex objects
