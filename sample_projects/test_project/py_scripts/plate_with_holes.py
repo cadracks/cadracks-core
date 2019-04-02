@@ -9,9 +9,15 @@ from ccad.model import cylinder, translated, box
 
 units = 'mm'
 
-e = 5
-l = 20
-w = 30
+# e = 15
+# l = 20
+# w = 30
+
+input = {"e": 5, "l": 20, "w":30}
+
+e = input["e"]
+l = input["l"]
+w = input["w"]
 
 hole_d = 2
 

@@ -1,13 +1,32 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-r""""""
+# Copyright 2018-2019 Guillaume Florent, Thomas Paviot, Bernard Uguen
+
+# This file is part of cadracks-core.
+#
+# cadracks-core is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# cadracks-core is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with cadracks-core.  If not, see <https://www.gnu.org/licenses/>.
+
+r"""Display of an anchorable part retrieved in a library"""
 
 from os.path import join, dirname
 
 from cadracks_core.factories import anchorable_part_from_library
 
-ap1 = anchorable_part_from_library(join(dirname(__file__), "ISO4014_library.json"), "ISO4014_M2_grade_Ax16")
+ap1 = anchorable_part_from_library(join(dirname(__file__),
+                                        "ISO4014_library.json"),
+                                   "ISO4014_M2_grade_Ax16")
 
 if __name__ == "__main__":
     from OCC.Display.SimpleGui import init_display

@@ -18,23 +18,29 @@
 # You should have received a copy of the GNU General Public License
 # along with cadracks-core.  If not, see <https://www.gnu.org/licenses/>.
 
-r"""Display of an anchorable part retrived from a stepzip"""
+r"""Minimalistic assembly example"""
+
+from cadracks_core.factories import anchorable_part_from_py_script
+from cadracks_core.model import Assembly
+from cadracks_core.joints import CylindricalJoint
 
 from os.path import join, dirname
 
-from cadracks_core.factories import anchorable_part_from_stepzip
+minimal_filepath = join(dirname(__file__), "minimal.py")
 
-ap1 = anchorable_part_from_stepzip(join(dirname(__file__),
-                                        "./models/spacer.stepzip"))
+p1 = anchorable_part_from_py_script(minimal_filepath)
+p2 = p1.copy(new_name="p2")
+
+j = CylindricalJoint(anchor=p1.anchors['top'], ty=10, tz=10)
+
+a = Assembly(root_part=p1, name='a')
+a.add_part(part_to_add=p2,
+           part_to_add_anchors=['top'],
+           receiving_parts=[p1],
+           receiving_parts_anchors=['top'],
+           links=[j])
+
+j.set_joint(tx=10, rx=0)
 
 
-if __name__ == "__main__":
-    from OCC.Display.SimpleGui import init_display
-    from cadracks_core.display import display_anchorable_part
-
-    display, start_display, add_menu, add_function_to_menu = init_display()
-
-    display_anchorable_part(display, ap1, color="BLUE")
-
-    display.FitAll()
-    start_display()
+__assembly__ = a
