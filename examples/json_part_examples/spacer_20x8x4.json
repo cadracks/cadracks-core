@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "name": {
+      "en": "Big spacer",
+      "fr": "Grande entretoise"
+    },
+    "description": {
+      "en": "Big spacer",
+      "fr": "Grande entretoise"
+    },
+    "nomenclature": {
+      "en": "'spacer_' + str(float(l)) + 'x' + str(float(d_out)) + 'x' + str(float(d_in))",
+      "fr": "'entretoise_' + str(float(l)) + 'x' + str(float(d_out)) + 'x' + str(float(d_in))"
+    },
+    "units": {
+      "length": ["mm", ["l", "d_out", "d_in"]],
+      "force": ["N", []],
+      "weight": ["g", []],
+      "dimensionless": ["", []]
+    },
+    "fields": {
+      "l": {
+        "fr": "Longueur",
+        "en": "Length"
+      },
+      "d_out": {
+        "fr": "Diamètre extérieur",
+        "en": "Outside diameter"
+      },
+      "d_in": {
+        "fr": "Diamètre intérieur",
+        "en": "Inside diameter"
+      }
+    },
+    "authors": [
+      "Guillaume Florent"
+    ],
+    "url": "https://github.com/guillaume-florent/standard-cad-parts/parts/fasteners/screws/ISO_4014",
+    "license": "GPL v3 or later"
+  },
+  "script": "spacer.py",
+  "data": {
+      "l__min": 19.0,
+      "l__nominal": 20.0,
+      "l__max": 21.0,
+      "d_out__min": 7.5,
+      "d_out__nominal": 8.0,
+      "d_out__max": 8.5,
+      "d_in__min": 4.0,
+      "d_in__nominal": 4.0,
+      "d_in__max": 4.2
+  },
+  "drawings": {
+    "spacer": []
+  }
+}

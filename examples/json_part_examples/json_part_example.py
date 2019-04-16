@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# coding: utf-8
 
 # Copyright 2018-2019 Guillaume Florent, Thomas Paviot, Bernard Uguen
 
@@ -17,17 +18,22 @@
 # You should have received a copy of the GNU General Public License
 # along with cadracks-core.  If not, see <https://www.gnu.org/licenses/>.
 
-r"""cadracks-core __init__ file"""
+r"""Create a part defined in a JSON that references a Python creation script"""
 
-from __future__ import unicode_literals
+from os.path import join, dirname
 
-__name__ = "cadracks_core"
-__description__ = "Complex product modelling"
+from OCC.Display.SimpleGui import init_display
+from cadracks_core.display import display_anchorable_part
 
-__version__ = "0.1.2"
-__release__ = __version__
-__author__ = "Guillaume Florent, Thomas Paviot, Bernard Uguen"
-__author_email__ = "guillaume.florent@tutanota.com"
-__license__ = 'GPL v3'
-__url__ = "https://github.com/cadracks/cadracks-core"
-__download_url__ = "https://github.com/cadracks/cadracks-core/releases/tag/" + __release__
+from cadracks_core.factories import part_from_json
+
+
+if __name__ == "__main__":
+
+    ap = part_from_json(join(dirname(__file__), "spacer_20x8x4.json"))
+
+    display, start_display, add_menu, add_function_to_menu = init_display()
+
+    display_anchorable_part(display, ap, color="BLUE", transparency=0.5, update=True)
+
+    start_display()

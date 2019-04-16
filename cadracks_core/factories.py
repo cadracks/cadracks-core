@@ -22,6 +22,7 @@ r"""Creation of anchorable parts from various sources"""
 from os.path import basename, splitext, join, dirname
 import imp
 import logging
+import json
 
 # from corelib.core.memoize import memoize
 
@@ -63,6 +64,46 @@ def anchors_dict_to_list(anchors_dict):
 # Cannot use memoize here, we need a copy
 
 cache = {}
+
+
+def part_from_json(json_file, data_variant="nominal", language="en"):
+    r"""Create a part using a JSON file (data) that references a Python script (creation logic)
+
+    Parameters
+    ----------
+    json_file : path to the JSON part definition file
+    data_variant : str
+        nominal, maximum or minimum
+    language : str
+        language code
+
+    Returns
+    -------
+    AnchorablePart
+
+    """
+    if data_variant not in ["nominal", "maximum", "minimum"]:
+        raise ValueError
+
+    with open(json_file) as fi:
+        json_content = json.load(fi)
+
+    script_path = json_content["script"]
+
+    mod = imp.load_source(script_path, script_path)
+
+    data_nominal = {k: v for (k, v) in json_content["data"].items() if "__"+data_variant in k}
+    data = {k.replace("__"+data_variant, ""): v for (k, v) in data_nominal.items()}
+
+    # There must be a create_part() function in the script
+    shape, anchors_dict, properties = mod.create_part(data)
+
+    anchors_list = anchors_dict_to_list(anchors_dict)
+
+    return AnchorablePart(shape=shape,
+                          name=json_content["metadata"]["name"][language],
+                          anchors=anchors_list,
+                          properties=properties)
 
 
 def anchorable_part_from_stepzip(stepzip_filepath):
